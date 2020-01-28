@@ -1,0 +1,198 @@
+#include <ESP8266WiFi.h>;
+
+#include <WiFiClient.h>;
+ 
+#include <ThingSpeak.h>;
+void SMS();
+void Talk();
+char *append_str(char *here, String s) ;
+char *append_ul(char *here, unsigned long u) ;
+
+
+String MakerIFTTT_Key ;
+;String MakerIFTTT_Event;
+char *append_str(char *here, String s) {  int i=0; while (*here++ = s[i]){i++;};return here-1;}
+char *append_ul(char *here, unsigned long u) { char buf[20]; return append_str(here, ultoa(u, buf, 10));}
+char post_rqst[256];char *p;char *content_length_here;char *json_start;int compi;
+ 
+const char* ssid = "Redmi"; //Your Network SSID
+ 
+const char* password = "7566214703"; //Your Network Password
+ 
+int val;
+ 
+ //LDR Pin Connected at A0 Pin
+ 
+ 
+ 
+WiFiClient client;
+ 
+unsigned long myChannelNumber = 971352; //Your Channel Number (Without Brackets)
+ 
+const char * myWriteAPIKey = "15EF1HOHPA16NAWU"; //Your Write API Key
+ 
+
+int b;
+int a; 
+
+int sensorPin =A0 ;    // select the input pin for the potentiometer
+
+int ledPin = D7;      // select the pin for the LED
+int sensorValue = 0; 
+float voltage =0 ;      // select the pin for the LED
+int se = 0;  // variable to store the value coming from the sensor
+void setup() {
+
+  pinMode(A0,INPUT);
+  //pinMode(A4,OUTPUT);
+
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+
+   
+delay(10);
+ 
+// Connect to WiFi network
+ 
+WiFi.begin(ssid, password);
+ 
+ 
+ 
+ThingSpeak.begin(client);
+
+
+}
+
+void loop() {
+
+  /*
+   * 
+    sensorValue = analogRead(sensorPin);
+  float vlt=sensorValue*(5.0/1024)*5.0;
+  Serial.println(sensorValue);
+
+  delay(100);
+  if (sensorValue>30){
+    delay(100000);
+    
+   * 
+   */
+   sensorValue = analogRead(sensorPin);
+
+  float vlt=sensorValue*(5.0/1024)*5.0;
+ Serial.println(sensorValue);
+
+
+  //analogWrite(A4,HIGH);  
+  delay(100);
+  if (sensorValue>40){
+    
+   digitalWrite(ledPin,HIGH);
+   delay(10000);
+  
+   Serial.println("start");
+   Talk();
+   String MakerIFTTT_Key ;
+
+SMS();
+ delay(100000);
+    
+    }
+ 
+ //Update in ThingSpeak
+ 
+ 
+ 
+
+    
+    
+    
+    }
+
+
+  /*INITIALIZE
+   * String MakerIFTTT_Key ;
+;String MakerIFTTT_Event;
+char *append_str(char *here, String s) {  int i=0; while (*here++ = s[i]){i++;};return here-1;}
+char *append_ul(char *here, unsigned long u) { char buf[20]; return append_str(here, ultoa(u, buf, 10));}
+char post_rqst[256];char *p;char *content_length_here;char *json_start;int compi;
+     */
+ //Serial.println("tilt="); Serial.println(b);
+/* if(b>736)
+ {Serial.println("Tilted");}
+ delay(200);
+ 
+  // turn the ledPin on
+ // digitalWrite(ledPin, HIGH);
+  // stop the program for <sensorValue> milliseconds:
+  //Serial.println("front");
+  //Serial.println(voltage);
+  delay(600);
+  //Serial.println("back");
+  //Serial.println(v);
+ if (voltage>6){
+    delay(100);
+    if (voltage>6)
+    
+   { Serial.print("Accident\n");}
+   #include <ESP8266WiFi.h>;
+ 
+#include <WiFiClient.h>;
+ 
+#include <ThingSpeak.h>;
+ 
+const char* ssid = "i"; //Your Network SSID
+ 
+const char* password = "12341234"; //Your Network Password
+ 
+int val;
+ 
+int LDRpin = A0; //LDR Pin Connected at A0 Pin
+ 
+ 
+ 
+WiFiClient client;
+ 
+unsigned long myChannelNumber = 971352; //Your Channel Number (Without Brackets)
+ 
+const char * myWriteAPIKey = "15EF1HOHPA16NAWU"; //Your Write API Key
+ 
+void setup()
+ 
+{
+ 
+Serial.begin(9600);
+ 
+delay(10);
+ 
+// Connect to WiFi network
+ 
+WiFi.begin(ssid, password);
+ 
+ 
+ 
+ThingSpeak.begin(client);
+ 
+}
+ 
+ 
+ 
+void loop()
+ 
+{
+ 
+val = analogRead(LDRpin); //Read Analog values and Store in val variable
+ 
+Serial.print(val); //Print on Serial Monitor
+ 
+delay(1000);
+ 
+ThingSpeak.writeField(myChannelNumber, 1,val, myWriteAPIKey); //Update in ThingSpeak
+ 
+ 
+ 
+delay(100);
+ 
+}
+    
+   }*/
